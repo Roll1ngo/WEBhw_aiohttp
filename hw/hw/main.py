@@ -3,7 +3,7 @@ import aiohttp
 import asyncio
 from datetime import datetime, timedelta
 import argparse
-import typing
+from rich import print
 
 
 parser = argparse.ArgumentParser(
@@ -66,14 +66,14 @@ def get_dates_range(start_date: str, end_date: str) -> list:
     return dates_list
 
 
-def get_exchange_rate(data: list(dict), currency_code: str) -> str:
+def get_exchange_rate(data: list, currency_code: str) -> str:
     for rate in data["exchangeRate"]:
         if rate["currency"] == currency_code:
             return rate["purchaseRate"], rate["saleRate"]
     return None
 
 
-def console_output(dates_list: list, responses_list: list(dict)):
+def console_output(dates_list: list, responses_list: list):
     for date, rates in zip(dates_list, responses_list):
         if rates:
             eur_buy, eur_sale = get_exchange_rate(rates, "EUR")
@@ -85,7 +85,7 @@ def console_output(dates_list: list, responses_list: list(dict)):
             print(f"Date: {date}, Data not available")
 
 
-async def run(numbers_of_days: int) -> None:
+async def run() -> None:
     start_date = (datetime.now() - timedelta(days=int(numbers_of_days) - 1)).strftime(
         "%d.%m.%Y"
     )
@@ -103,5 +103,5 @@ if __name__ == "__main__":
     if platform.system() == "Windows":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-    r = asyncio.run(run(numbers_of_days))
+    r = asyncio.run(run())
     print(r)

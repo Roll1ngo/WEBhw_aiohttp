@@ -10,6 +10,7 @@ packages = [{include = "hw"}]
 python = "^3.11"
 aiohttp = "^3.8.6"
 requests = "^2.31.0"
+rich = "^13.6.0"
 
 [tool.poetry.scripts]
 exchange = 'hw.main:run'
