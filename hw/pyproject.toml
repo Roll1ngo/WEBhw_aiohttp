@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "hw"
+version = "0.1.0"
+description = ""
+authors = ["Vladislav B <rolmf85@gmail.com>"]
+readme = "README.md"
+packages = [{include = "hw"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiohttp = "^3.8.6"
+requests = "^2.31.0"
+
+[tool.poetry.scripts]
+exchange = 'hw.main:run'
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
